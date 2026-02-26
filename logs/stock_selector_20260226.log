@@ -1,0 +1,526 @@
+2026-02-26 13:56:21,032 - __main__ - INFO - ============================================================
+2026-02-26 13:56:21,032 - __main__ - INFO - 开始选股流程
+2026-02-26 13:56:21,032 - __main__ - INFO - 开始时间: 2026-02-26 13:56:21
+2026-02-26 13:56:21,032 - __main__ - INFO - ============================================================
+2026-02-26 13:56:21,033 - data_fetcher - INFO - 开始获取所有A股股票代码...
+2026-02-26 13:56:32,932 - data_fetcher - ERROR - 获取股票代码失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 13:56:32,933 - stock_selector - ERROR - 无法获取股票代码列表
+2026-02-26 13:56:32,934 - __main__ - ERROR - 选股流程出错: division by zero
+Traceback (most recent call last):
+  File "D:\stock\main.py", line 67, in run_selection
+    print(f"通过率: {len(passed_stocks)/len(all_results)*100:.2f}%")
+                     ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+ZeroDivisionError: division by zero
+2026-02-26 13:58:46,106 - data_fetcher - INFO - 尝试接口 stock_zh_a_spot_em ...
+2026-02-26 13:58:52,818 - data_fetcher - WARNING - 接口 _codes_via_spot_em 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 13:58:54,819 - data_fetcher - INFO - 尝试接口 stock_info_a_code_name ...
+2026-02-26 13:58:55,032 - data_fetcher - WARNING - 接口 _codes_via_info_a_code_name 失败: Expecting value: line 3 column 1 (char 2)
+2026-02-26 13:58:57,033 - data_fetcher - INFO - 尝试接口 stock_sh + stock_sz ...
+2026-02-26 13:59:02,468 - data_fetcher - WARNING - 获取上交所失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 13:59:08,386 - data_fetcher - WARNING - 获取深交所失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 13:59:08,386 - data_fetcher - ERROR - 所有获取股票代码的接口均失败
+2026-02-26 14:00:23,056 - data_fetcher - INFO - 尝试接口 stock_zh_a_spot_em ...
+2026-02-26 14:00:29,566 - data_fetcher - WARNING - 接口 _codes_via_spot_em 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:00:31,567 - data_fetcher - INFO - 尝试接口 stock_info_a_code_name ...
+2026-02-26 14:00:40,999 - data_fetcher - INFO - 成功获取 5485 个股票代码
+2026-02-26 14:00:41,200 - data_fetcher - WARNING - 000001 日线失败（1）: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:00:43,404 - data_fetcher - WARNING - 000001 日线失败（2）: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:00:47,590 - data_fetcher - WARNING - 000001 日线失败（3）: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:00:47,590 - data_fetcher - ERROR - 000001 日线多次重试仍失败
+2026-02-26 14:05:36,378 - data_fetcher - WARNING - 000001 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:05:38,582 - data_fetcher - WARNING - 000001 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:05:42,825 - data_fetcher - WARNING - 000001 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:05:42,825 - data_fetcher - INFO - 000001 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:05:54,512 - data_fetcher - WARNING - 000001 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:05:56,733 - data_fetcher - WARNING - 000001 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:06:00,932 - data_fetcher - WARNING - 000001 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:06:00,932 - data_fetcher - INFO - 000001 周线直接获取失败，改用日线聚合
+2026-02-26 14:06:01,151 - data_fetcher - WARNING - 000001 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:06:03,368 - data_fetcher - WARNING - 000001 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:06:07,560 - data_fetcher - WARNING - 000001 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:06:07,560 - data_fetcher - INFO - 000001 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:06:17,358 - __main__ - INFO - ============================================================
+2026-02-26 14:06:17,358 - __main__ - INFO - 开始选股流程
+2026-02-26 14:06:17,358 - __main__ - INFO - 开始时间: 2026-02-26 14:06:17
+2026-02-26 14:06:17,359 - __main__ - INFO - ============================================================
+2026-02-26 14:06:17,359 - data_fetcher - INFO - 开始获取所有A股股票代码...
+2026-02-26 14:06:17,359 - data_fetcher - INFO - 尝试接口: stock_info_a_code_name
+2026-02-26 14:06:19,794 - data_fetcher - WARNING - 接口 stock_info_a_code_name 失败: Excel file format cannot be determined, you must specify an engine manually.
+2026-02-26 14:06:21,796 - data_fetcher - INFO - 尝试接口: stock_zh_a_spot_em
+2026-02-26 14:06:27,801 - data_fetcher - WARNING - 接口 stock_zh_a_spot_em 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:06:29,802 - data_fetcher - INFO - 尝试接口: stock_sh+sz_a_spot_em
+2026-02-26 14:06:35,148 - data_fetcher - WARNING - 子接口失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:06:40,942 - data_fetcher - WARNING - 子接口失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:06:40,942 - data_fetcher - ERROR - 所有获取股票代码的接口均失败
+2026-02-26 14:06:40,942 - stock_selector - ERROR - 无法获取股票代码列表
+2026-02-26 14:06:40,943 - __main__ - ERROR - 选股流程出错: 'gbk' codec can't encode character '\u2717' in position 0: illegal multibyte sequence
+Traceback (most recent call last):
+  File "D:\stock\main.py", line 62, in run_selection
+    print("✗ 未发现符合条件的股票\n")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 0: illegal multibyte sequence
+2026-02-26 14:07:28,575 - data_fetcher - INFO - 开始获取所有A股股票代码...
+2026-02-26 14:07:28,575 - data_fetcher - INFO - 尝试接口: stock_info_a_code_name
+2026-02-26 14:07:30,005 - data_fetcher - WARNING - 接口 stock_info_a_code_name 失败: Excel file format cannot be determined, you must specify an engine manually.
+2026-02-26 14:07:32,007 - data_fetcher - INFO - 尝试接口: stock_zh_a_spot_em
+2026-02-26 14:07:36,931 - data_fetcher - WARNING - 接口 stock_zh_a_spot_em 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:07:38,932 - data_fetcher - INFO - 尝试接口: stock_sh+sz_a_spot_em
+2026-02-26 14:07:44,786 - data_fetcher - WARNING - 子接口失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:07:50,002 - data_fetcher - WARNING - 子接口失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:07:50,002 - data_fetcher - ERROR - 所有获取股票代码的接口均失败
+2026-02-26 14:09:18,670 - __main__ - INFO - ============================================================
+2026-02-26 14:09:18,670 - __main__ - INFO - 开始选股流程
+2026-02-26 14:09:18,671 - __main__ - INFO - 开始时间: 2026-02-26 14:09:18
+2026-02-26 14:09:18,671 - __main__ - INFO - ============================================================
+2026-02-26 14:09:18,671 - data_fetcher - INFO - 开始获取所有A股股票代码...
+2026-02-26 14:09:18,671 - data_fetcher - INFO - 尝试接口: stock_info_a_code_name
+2026-02-26 14:09:20,155 - data_fetcher - WARNING - 接口 stock_info_a_code_name 失败: Excel file format cannot be determined, you must specify an engine manually.
+2026-02-26 14:09:22,157 - data_fetcher - INFO - 尝试接口: stock_zh_a_spot_em
+2026-02-26 14:09:27,927 - data_fetcher - WARNING - 接口 stock_zh_a_spot_em 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:09:29,927 - data_fetcher - INFO - 尝试接口: stock_sh+sz_a_spot_em
+2026-02-26 14:09:36,613 - data_fetcher - WARNING - 子接口失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:09:43,168 - data_fetcher - WARNING - 子接口失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:09:43,169 - data_fetcher - ERROR - 所有获取股票代码的接口均失败
+2026-02-26 14:09:43,169 - stock_selector - ERROR - 无法获取股票代码列表
+2026-02-26 14:09:43,169 - __main__ - ERROR - 选股流程出错: division by zero
+Traceback (most recent call last):
+  File "D:\stock\main.py", line 76, in run_selection
+    print(f"通过率: {len(passed_stocks)/len(all_results)*100:.2f}%")
+                     ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+ZeroDivisionError: division by zero
+2026-02-26 14:11:00,082 - data_fetcher - INFO - 开始获取所有A股股票代码...
+2026-02-26 14:11:00,082 - data_fetcher - INFO - 尝试接口: stock_info_a_code_name
+2026-02-26 14:11:02,798 - data_fetcher - WARNING - 深交所失败: Excel file format cannot be determined, you must specify an engine manually.
+2026-02-26 14:11:08,025 - data_fetcher - INFO - 成功获取 2602 个股票代码
+2026-02-26 14:11:34,766 - data_fetcher - INFO - 开始获取所有A股股票代码...
+2026-02-26 14:11:34,766 - data_fetcher - INFO - 尝试接口: stock_info_a_code_name
+2026-02-26 14:11:37,571 - data_fetcher - WARNING - 深交所失败: Excel file format cannot be determined, you must specify an engine manually.
+2026-02-26 14:11:42,996 - data_fetcher - INFO - 成功获取 2602 个股票代码
+2026-02-26 14:12:23,534 - data_fetcher - INFO - 开始获取所有A股股票代码...
+2026-02-26 14:12:23,535 - data_fetcher - INFO - 尝试接口: stock_info_a_code_name
+2026-02-26 14:12:35,059 - data_fetcher - INFO - 成功获取 5485 个股票代码
+2026-02-26 14:12:46,451 - __main__ - INFO - ============================================================
+2026-02-26 14:12:46,452 - __main__ - INFO - 开始选股流程
+2026-02-26 14:12:46,452 - __main__ - INFO - 开始时间: 2026-02-26 14:12:46
+2026-02-26 14:12:46,452 - __main__ - INFO - ============================================================
+2026-02-26 14:12:46,452 - data_fetcher - INFO - 开始获取所有A股股票代码...
+2026-02-26 14:12:46,452 - data_fetcher - INFO - 尝试接口: stock_info_a_code_name
+2026-02-26 14:12:56,300 - data_fetcher - INFO - 成功获取 5485 个股票代码
+2026-02-26 14:12:56,300 - stock_selector - INFO - 仅处理前 10 个股票进行测试
+2026-02-26 14:12:56,300 - stock_selector - INFO - 开始批量筛选 10 个股票
+2026-02-26 14:12:56,300 - stock_selector - INFO - [1/10] 正在处理 600000
+2026-02-26 14:12:56,300 - stock_selector - INFO - 开始筛选股票 600000
+2026-02-26 14:12:56,618 - data_fetcher - WARNING - 600000 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:12:58,959 - data_fetcher - WARNING - 600000 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:03,286 - data_fetcher - WARNING - 600000 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:03,286 - data_fetcher - INFO - 600000 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:13:04,615 - data_fetcher - WARNING - 600000 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:06,916 - data_fetcher - WARNING - 600000 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:11,235 - data_fetcher - WARNING - 600000 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:11,235 - data_fetcher - INFO - 600000 周线直接获取失败，改用日线聚合
+2026-02-26 14:13:11,567 - data_fetcher - WARNING - 600000 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:13,905 - data_fetcher - WARNING - 600000 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:18,207 - data_fetcher - WARNING - 600000 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:18,207 - data_fetcher - INFO - 600000 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:13:19,060 - stock_selector - INFO - [2/10] 正在处理 600004
+2026-02-26 14:13:19,060 - stock_selector - INFO - 开始筛选股票 600004
+2026-02-26 14:13:19,435 - data_fetcher - WARNING - 600004 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:21,782 - data_fetcher - WARNING - 600004 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:26,081 - data_fetcher - WARNING - 600004 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:26,081 - data_fetcher - INFO - 600004 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:13:27,373 - data_fetcher - WARNING - 600004 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:29,794 - data_fetcher - WARNING - 600004 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:34,166 - data_fetcher - WARNING - 600004 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:34,167 - data_fetcher - INFO - 600004 周线直接获取失败，改用日线聚合
+2026-02-26 14:13:34,547 - data_fetcher - WARNING - 600004 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:36,886 - data_fetcher - WARNING - 600004 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:41,246 - data_fetcher - WARNING - 600004 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:41,246 - data_fetcher - INFO - 600004 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:13:42,721 - stock_selector - INFO - [3/10] 正在处理 600006
+2026-02-26 14:13:42,721 - stock_selector - INFO - 开始筛选股票 600006
+2026-02-26 14:13:43,049 - data_fetcher - WARNING - 600006 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:45,352 - data_fetcher - WARNING - 600006 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:49,708 - data_fetcher - WARNING - 600006 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:49,708 - data_fetcher - INFO - 600006 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:13:51,066 - data_fetcher - WARNING - 600006 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:53,407 - data_fetcher - WARNING - 600006 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:57,763 - data_fetcher - WARNING - 600006 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:13:57,764 - data_fetcher - INFO - 600006 周线直接获取失败，改用日线聚合
+2026-02-26 14:13:58,096 - data_fetcher - WARNING - 600006 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:00,404 - data_fetcher - WARNING - 600006 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:04,703 - data_fetcher - WARNING - 600006 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:04,703 - data_fetcher - INFO - 600006 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:14:05,547 - stock_selector - INFO - [4/10] 正在处理 600007
+2026-02-26 14:14:05,547 - stock_selector - INFO - 开始筛选股票 600007
+2026-02-26 14:14:05,871 - data_fetcher - WARNING - 600007 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:08,192 - data_fetcher - WARNING - 600007 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:12,524 - data_fetcher - WARNING - 600007 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:12,525 - data_fetcher - INFO - 600007 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:14:13,756 - data_fetcher - WARNING - 600007 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:16,068 - data_fetcher - WARNING - 600007 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:20,384 - data_fetcher - WARNING - 600007 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:20,384 - data_fetcher - INFO - 600007 周线直接获取失败，改用日线聚合
+2026-02-26 14:14:20,728 - data_fetcher - WARNING - 600007 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:23,097 - data_fetcher - WARNING - 600007 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:27,466 - data_fetcher - WARNING - 600007 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:27,466 - data_fetcher - INFO - 600007 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:14:29,334 - stock_selector - INFO - [5/10] 正在处理 600008
+2026-02-26 14:14:29,334 - stock_selector - INFO - 开始筛选股票 600008
+2026-02-26 14:14:29,596 - data_fetcher - WARNING - 600008 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:31,805 - data_fetcher - WARNING - 600008 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:35,994 - data_fetcher - WARNING - 600008 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:35,995 - data_fetcher - INFO - 600008 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:14:37,097 - data_fetcher - WARNING - 600008 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:39,287 - data_fetcher - WARNING - 600008 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:43,486 - data_fetcher - WARNING - 600008 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:43,486 - data_fetcher - INFO - 600008 周线直接获取失败，改用日线聚合
+2026-02-26 14:14:43,676 - data_fetcher - WARNING - 600008 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:45,859 - data_fetcher - WARNING - 600008 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:50,059 - data_fetcher - WARNING - 600008 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:50,059 - data_fetcher - INFO - 600008 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:14:50,986 - stock_selector - INFO - [6/10] 正在处理 600009
+2026-02-26 14:14:50,986 - stock_selector - INFO - 开始筛选股票 600009
+2026-02-26 14:14:51,164 - data_fetcher - WARNING - 600009 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:53,356 - data_fetcher - WARNING - 600009 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:57,541 - data_fetcher - WARNING - 600009 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:14:57,541 - data_fetcher - INFO - 600009 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:14:58,733 - data_fetcher - WARNING - 600009 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:00,940 - data_fetcher - WARNING - 600009 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:05,138 - data_fetcher - WARNING - 600009 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:05,138 - data_fetcher - INFO - 600009 周线直接获取失败，改用日线聚合
+2026-02-26 14:15:05,334 - data_fetcher - WARNING - 600009 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:07,534 - data_fetcher - WARNING - 600009 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:11,720 - data_fetcher - WARNING - 600009 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:11,720 - data_fetcher - INFO - 600009 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:15:12,843 - stock_selector - INFO - [7/10] 正在处理 600010
+2026-02-26 14:15:12,843 - stock_selector - INFO - 开始筛选股票 600010
+2026-02-26 14:15:13,038 - data_fetcher - WARNING - 600010 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:15,244 - data_fetcher - WARNING - 600010 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:19,455 - data_fetcher - WARNING - 600010 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:19,455 - data_fetcher - INFO - 600010 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:15:20,572 - data_fetcher - WARNING - 600010 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:22,761 - data_fetcher - WARNING - 600010 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:26,953 - data_fetcher - WARNING - 600010 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:26,953 - data_fetcher - INFO - 600010 周线直接获取失败，改用日线聚合
+2026-02-26 14:15:27,137 - data_fetcher - WARNING - 600010 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:29,331 - data_fetcher - WARNING - 600010 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:33,670 - data_fetcher - WARNING - 600010 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:33,670 - data_fetcher - INFO - 600010 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:15:34,822 - stock_selector - INFO - [8/10] 正在处理 600011
+2026-02-26 14:15:34,822 - stock_selector - INFO - 开始筛选股票 600011
+2026-02-26 14:15:35,114 - data_fetcher - WARNING - 600011 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:37,434 - data_fetcher - WARNING - 600011 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:41,728 - data_fetcher - WARNING - 600011 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:41,728 - data_fetcher - INFO - 600011 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:15:42,956 - data_fetcher - WARNING - 600011 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:45,404 - data_fetcher - WARNING - 600011 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:49,724 - data_fetcher - WARNING - 600011 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:49,724 - data_fetcher - INFO - 600011 周线直接获取失败，改用日线聚合
+2026-02-26 14:15:50,025 - data_fetcher - WARNING - 600011 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:52,344 - data_fetcher - WARNING - 600011 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:56,651 - data_fetcher - WARNING - 600011 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:15:56,651 - data_fetcher - INFO - 600011 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:15:57,752 - stock_selector - INFO - [9/10] 正在处理 600012
+2026-02-26 14:15:57,753 - stock_selector - INFO - 开始筛选股票 600012
+2026-02-26 14:15:58,068 - data_fetcher - WARNING - 600012 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:16:00,358 - data_fetcher - WARNING - 600012 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:16:04,558 - data_fetcher - WARNING - 600012 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:16:04,558 - data_fetcher - INFO - 600012 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:16:05,772 - data_fetcher - WARNING - 600012 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:16:07,990 - data_fetcher - WARNING - 600012 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:16:12,178 - data_fetcher - WARNING - 600012 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:16:12,179 - data_fetcher - INFO - 600012 周线直接获取失败，改用日线聚合
+2026-02-26 14:16:12,361 - data_fetcher - WARNING - 600012 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:16:14,550 - data_fetcher - WARNING - 600012 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:16:18,766 - data_fetcher - WARNING - 600012 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:16:18,766 - data_fetcher - INFO - 600012 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:16:19,588 - stock_selector - INFO - [10/10] 正在处理 600015
+2026-02-26 14:16:19,589 - stock_selector - INFO - 开始筛选股票 600015
+2026-02-26 14:16:19,771 - data_fetcher - WARNING - 600015 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:16:21,958 - data_fetcher - WARNING - 600015 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:16:26,161 - data_fetcher - WARNING - 600015 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:16:26,161 - data_fetcher - INFO - 600015 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:16:27,425 - data_fetcher - WARNING - 600015 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:16:29,634 - data_fetcher - WARNING - 600015 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:16:33,823 - data_fetcher - WARNING - 600015 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:16:33,823 - data_fetcher - INFO - 600015 周线直接获取失败，改用日线聚合
+2026-02-26 14:16:34,019 - data_fetcher - WARNING - 600015 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:16:36,224 - data_fetcher - WARNING - 600015 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:16:40,461 - data_fetcher - WARNING - 600015 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:16:40,461 - data_fetcher - INFO - 600015 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:16:41,327 - stock_selector - INFO - 筛选完成: 总共检查 10 个股票，0 个通过筛选
+2026-02-26 14:16:41,331 - stock_selector - INFO - 结果已保存到 data/stock_filter_results.csv
+2026-02-26 14:16:41,332 - __main__ - INFO - ============================================================
+2026-02-26 14:16:41,332 - __main__ - INFO - 选股流程完成
+2026-02-26 14:16:41,332 - __main__ - INFO - 结束时间: 2026-02-26 14:16:41
+2026-02-26 14:16:41,332 - __main__ - INFO - ============================================================
+2026-02-26 14:19:07,573 - data_fetcher - WARNING - 600000 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:19:09,784 - data_fetcher - WARNING - 600000 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:19:14,009 - data_fetcher - WARNING - 600000 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:19:14,009 - data_fetcher - INFO - 600000 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:21:29,505 - __main__ - INFO - ============================================================
+2026-02-26 14:21:29,505 - __main__ - INFO - 开始选股流程
+2026-02-26 14:21:29,505 - __main__ - INFO - 开始时间: 2026-02-26 14:21:29
+2026-02-26 14:21:29,505 - __main__ - INFO - ============================================================
+2026-02-26 14:21:29,505 - data_fetcher - INFO - 开始获取所有A股股票代码...
+2026-02-26 14:21:29,505 - data_fetcher - INFO - 尝试接口: stock_info_a_code_name
+2026-02-26 14:21:39,721 - data_fetcher - INFO - 成功获取 5485 个股票代码
+2026-02-26 14:21:39,722 - stock_selector - INFO - 仅处理前 10 个股票进行测试
+2026-02-26 14:21:39,722 - stock_selector - INFO - 开始批量筛选 10 个股票
+2026-02-26 14:21:39,722 - stock_selector - INFO - [1/10] 正在处理 600000
+2026-02-26 14:21:39,722 - stock_selector - INFO - 开始筛选股票 600000
+2026-02-26 14:21:39,932 - data_fetcher - WARNING - 600000 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:21:42,172 - data_fetcher - WARNING - 600000 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:21:46,398 - data_fetcher - WARNING - 600000 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:21:46,398 - data_fetcher - INFO - 600000 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:21:47,651 - data_fetcher - WARNING - 600000 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:21:49,851 - data_fetcher - WARNING - 600000 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:21:54,075 - data_fetcher - WARNING - 600000 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:21:54,075 - data_fetcher - INFO - 600000 周线直接获取失败，改用日线聚合
+2026-02-26 14:21:54,085 - stock_selector - INFO - [2/10] 正在处理 600004
+2026-02-26 14:21:54,085 - stock_selector - INFO - 开始筛选股票 600004
+2026-02-26 14:21:54,309 - data_fetcher - WARNING - 600004 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:21:56,512 - data_fetcher - WARNING - 600004 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:00,719 - data_fetcher - WARNING - 600004 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:00,719 - data_fetcher - INFO - 600004 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:22:01,961 - data_fetcher - WARNING - 600004 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:04,170 - data_fetcher - WARNING - 600004 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:08,376 - data_fetcher - WARNING - 600004 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:08,377 - data_fetcher - INFO - 600004 周线直接获取失败，改用日线聚合
+2026-02-26 14:22:08,385 - stock_selector - INFO - [3/10] 正在处理 600006
+2026-02-26 14:22:08,385 - stock_selector - INFO - 开始筛选股票 600006
+2026-02-26 14:22:08,581 - data_fetcher - WARNING - 600006 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:10,925 - data_fetcher - WARNING - 600006 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:15,260 - data_fetcher - WARNING - 600006 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:15,260 - data_fetcher - INFO - 600006 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:22:16,656 - data_fetcher - WARNING - 600006 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:19,001 - data_fetcher - WARNING - 600006 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:23,343 - data_fetcher - WARNING - 600006 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:23,343 - data_fetcher - INFO - 600006 周线直接获取失败，改用日线聚合
+2026-02-26 14:22:23,352 - stock_selector - INFO - [4/10] 正在处理 600007
+2026-02-26 14:22:23,352 - stock_selector - INFO - 开始筛选股票 600007
+2026-02-26 14:22:23,711 - data_fetcher - WARNING - 600007 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:26,023 - data_fetcher - WARNING - 600007 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:30,374 - data_fetcher - WARNING - 600007 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:30,374 - data_fetcher - INFO - 600007 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:22:31,797 - data_fetcher - WARNING - 600007 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:34,136 - data_fetcher - WARNING - 600007 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:38,482 - data_fetcher - WARNING - 600007 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:38,482 - data_fetcher - INFO - 600007 周线直接获取失败，改用日线聚合
+2026-02-26 14:22:38,491 - stock_selector - INFO - [5/10] 正在处理 600008
+2026-02-26 14:22:38,491 - stock_selector - INFO - 开始筛选股票 600008
+2026-02-26 14:22:38,826 - data_fetcher - WARNING - 600008 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:41,167 - data_fetcher - WARNING - 600008 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:45,531 - data_fetcher - WARNING - 600008 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:45,531 - data_fetcher - INFO - 600008 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:22:47,195 - data_fetcher - WARNING - 600008 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:49,591 - data_fetcher - WARNING - 600008 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:53,914 - data_fetcher - WARNING - 600008 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:53,914 - data_fetcher - INFO - 600008 周线直接获取失败，改用日线聚合
+2026-02-26 14:22:53,923 - stock_selector - INFO - [6/10] 正在处理 600009
+2026-02-26 14:22:53,923 - stock_selector - INFO - 开始筛选股票 600009
+2026-02-26 14:22:54,317 - data_fetcher - WARNING - 600009 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:22:56,794 - data_fetcher - WARNING - 600009 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:01,341 - data_fetcher - WARNING - 600009 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:01,341 - data_fetcher - INFO - 600009 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:23:03,208 - data_fetcher - WARNING - 600009 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:05,533 - data_fetcher - WARNING - 600009 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:09,874 - data_fetcher - WARNING - 600009 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:09,874 - data_fetcher - INFO - 600009 周线直接获取失败，改用日线聚合
+2026-02-26 14:23:09,883 - stock_selector - INFO - [7/10] 正在处理 600010
+2026-02-26 14:23:09,883 - stock_selector - INFO - 开始筛选股票 600010
+2026-02-26 14:23:10,273 - data_fetcher - WARNING - 600010 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:12,752 - data_fetcher - WARNING - 600010 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:17,165 - data_fetcher - WARNING - 600010 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:17,165 - data_fetcher - INFO - 600010 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:23:18,720 - data_fetcher - WARNING - 600010 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:21,076 - data_fetcher - WARNING - 600010 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:25,341 - data_fetcher - WARNING - 600010 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:25,341 - data_fetcher - INFO - 600010 周线直接获取失败，改用日线聚合
+2026-02-26 14:23:25,349 - stock_selector - INFO - [8/10] 正在处理 600011
+2026-02-26 14:23:25,349 - stock_selector - INFO - 开始筛选股票 600011
+2026-02-26 14:23:25,571 - data_fetcher - WARNING - 600011 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:28,111 - data_fetcher - WARNING - 600011 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:32,453 - data_fetcher - WARNING - 600011 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:32,453 - data_fetcher - INFO - 600011 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:23:33,909 - data_fetcher - WARNING - 600011 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:36,549 - data_fetcher - WARNING - 600011 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:40,741 - data_fetcher - WARNING - 600011 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:40,741 - data_fetcher - INFO - 600011 周线直接获取失败，改用日线聚合
+2026-02-26 14:23:40,750 - stock_selector - INFO - [9/10] 正在处理 600012
+2026-02-26 14:23:40,750 - stock_selector - INFO - 开始筛选股票 600012
+2026-02-26 14:23:40,946 - data_fetcher - WARNING - 600012 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:43,160 - data_fetcher - WARNING - 600012 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:47,479 - data_fetcher - WARNING - 600012 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:47,480 - data_fetcher - INFO - 600012 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:23:49,774 - data_fetcher - WARNING - 600012 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:52,089 - data_fetcher - WARNING - 600012 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:56,378 - data_fetcher - WARNING - 600012 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:56,378 - data_fetcher - INFO - 600012 周线直接获取失败，改用日线聚合
+2026-02-26 14:23:56,387 - stock_selector - INFO - [10/10] 正在处理 600015
+2026-02-26 14:23:56,387 - stock_selector - INFO - 开始筛选股票 600015
+2026-02-26 14:23:56,670 - data_fetcher - WARNING - 600015 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:23:58,982 - data_fetcher - WARNING - 600015 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:24:03,331 - data_fetcher - WARNING - 600015 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:24:03,331 - data_fetcher - INFO - 600015 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:24:05,012 - data_fetcher - WARNING - 600015 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:24:07,323 - data_fetcher - WARNING - 600015 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:24:11,621 - data_fetcher - WARNING - 600015 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:24:11,621 - data_fetcher - INFO - 600015 周线直接获取失败，改用日线聚合
+2026-02-26 14:24:11,630 - stock_selector - INFO - 筛选完成: 总共检查 10 个股票，0 个通过筛选
+2026-02-26 14:24:11,634 - stock_selector - INFO - 结果已保存到 data/stock_filter_results.csv
+2026-02-26 14:24:11,634 - __main__ - INFO - ============================================================
+2026-02-26 14:24:11,634 - __main__ - INFO - 选股流程完成
+2026-02-26 14:24:11,634 - __main__ - INFO - 结束时间: 2026-02-26 14:24:11
+2026-02-26 14:24:11,634 - __main__ - INFO - ============================================================
+2026-02-26 14:24:22,331 - __main__ - INFO - ============================================================
+2026-02-26 14:24:22,331 - __main__ - INFO - 开始选股流程
+2026-02-26 14:24:22,331 - __main__ - INFO - 开始时间: 2026-02-26 14:24:22
+2026-02-26 14:24:22,331 - __main__ - INFO - ============================================================
+2026-02-26 14:24:22,331 - data_fetcher - INFO - 开始获取所有A股股票代码...
+2026-02-26 14:24:22,331 - data_fetcher - INFO - 尝试接口: stock_info_a_code_name
+2026-02-26 14:24:33,415 - data_fetcher - INFO - 成功获取 5485 个股票代码
+2026-02-26 14:24:33,415 - stock_selector - INFO - 仅处理前 10 个股票进行测试
+2026-02-26 14:24:33,415 - stock_selector - INFO - 开始批量筛选 10 个股票
+2026-02-26 14:24:33,415 - stock_selector - INFO - [1/10] 正在处理 600000
+2026-02-26 14:24:33,416 - stock_selector - INFO - 开始筛选股票 600000
+2026-02-26 14:24:33,751 - data_fetcher - WARNING - 600000 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:24:36,059 - data_fetcher - WARNING - 600000 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:24:40,364 - data_fetcher - WARNING - 600000 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:24:40,364 - data_fetcher - INFO - 600000 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:24:41,670 - data_fetcher - WARNING - 600000 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:24:43,963 - data_fetcher - WARNING - 600000 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:24:48,263 - data_fetcher - WARNING - 600000 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:24:48,263 - data_fetcher - INFO - 600000 周线直接获取失败，改用日线聚合
+2026-02-26 14:24:48,273 - stock_selector - INFO - [2/10] 正在处理 600004
+2026-02-26 14:24:48,273 - stock_selector - INFO - 开始筛选股票 600004
+2026-02-26 14:24:48,582 - data_fetcher - WARNING - 600004 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:24:50,901 - data_fetcher - WARNING - 600004 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:24:55,217 - data_fetcher - WARNING - 600004 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:24:55,218 - data_fetcher - INFO - 600004 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:24:56,607 - data_fetcher - WARNING - 600004 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:24:58,915 - data_fetcher - WARNING - 600004 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:03,228 - data_fetcher - WARNING - 600004 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:03,228 - data_fetcher - INFO - 600004 周线直接获取失败，改用日线聚合
+2026-02-26 14:25:03,237 - stock_selector - INFO - [3/10] 正在处理 600006
+2026-02-26 14:25:03,238 - stock_selector - INFO - 开始筛选股票 600006
+2026-02-26 14:25:03,538 - data_fetcher - WARNING - 600006 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:05,741 - data_fetcher - WARNING - 600006 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:09,972 - data_fetcher - WARNING - 600006 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:09,972 - data_fetcher - INFO - 600006 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:25:11,701 - data_fetcher - WARNING - 600006 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:13,934 - data_fetcher - WARNING - 600006 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:18,138 - data_fetcher - WARNING - 600006 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:18,138 - data_fetcher - INFO - 600006 周线直接获取失败，改用日线聚合
+2026-02-26 14:25:18,147 - stock_selector - INFO - [4/10] 正在处理 600007
+2026-02-26 14:25:18,147 - stock_selector - INFO - 开始筛选股票 600007
+2026-02-26 14:25:18,381 - data_fetcher - WARNING - 600007 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:20,591 - data_fetcher - WARNING - 600007 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:24,791 - data_fetcher - WARNING - 600007 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:24,792 - data_fetcher - INFO - 600007 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:25:26,180 - data_fetcher - WARNING - 600007 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:28,429 - data_fetcher - WARNING - 600007 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:32,658 - data_fetcher - WARNING - 600007 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:32,658 - data_fetcher - INFO - 600007 周线直接获取失败，改用日线聚合
+2026-02-26 14:25:32,667 - stock_selector - INFO - [5/10] 正在处理 600008
+2026-02-26 14:25:32,667 - stock_selector - INFO - 开始筛选股票 600008
+2026-02-26 14:25:32,891 - data_fetcher - WARNING - 600008 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:35,123 - data_fetcher - WARNING - 600008 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:39,360 - data_fetcher - WARNING - 600008 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:39,360 - data_fetcher - INFO - 600008 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:25:40,554 - data_fetcher - WARNING - 600008 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:42,771 - data_fetcher - WARNING - 600008 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:46,991 - data_fetcher - WARNING - 600008 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:46,991 - data_fetcher - INFO - 600008 周线直接获取失败，改用日线聚合
+2026-02-26 14:25:47,000 - stock_selector - INFO - [6/10] 正在处理 600009
+2026-02-26 14:25:47,000 - stock_selector - INFO - 开始筛选股票 600009
+2026-02-26 14:25:47,211 - data_fetcher - WARNING - 600009 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:49,420 - data_fetcher - WARNING - 600009 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:53,625 - data_fetcher - WARNING - 600009 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:53,626 - data_fetcher - INFO - 600009 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:25:55,853 - data_fetcher - WARNING - 600009 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:25:58,070 - data_fetcher - WARNING - 600009 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:02,350 - data_fetcher - WARNING - 600009 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:02,351 - data_fetcher - INFO - 600009 周线直接获取失败，改用日线聚合
+2026-02-26 14:26:02,359 - stock_selector - INFO - [7/10] 正在处理 600010
+2026-02-26 14:26:02,359 - stock_selector - INFO - 开始筛选股票 600010
+2026-02-26 14:26:02,706 - data_fetcher - WARNING - 600010 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:04,900 - data_fetcher - WARNING - 600010 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:09,122 - data_fetcher - WARNING - 600010 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:09,122 - data_fetcher - INFO - 600010 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:26:10,258 - data_fetcher - WARNING - 600010 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:12,461 - data_fetcher - WARNING - 600010 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:16,664 - data_fetcher - WARNING - 600010 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:16,664 - data_fetcher - INFO - 600010 周线直接获取失败，改用日线聚合
+2026-02-26 14:26:16,673 - stock_selector - INFO - [8/10] 正在处理 600011
+2026-02-26 14:26:16,673 - stock_selector - INFO - 开始筛选股票 600011
+2026-02-26 14:26:16,869 - data_fetcher - WARNING - 600011 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:19,067 - data_fetcher - WARNING - 600011 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:23,279 - data_fetcher - WARNING - 600011 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:23,279 - data_fetcher - INFO - 600011 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:26:24,430 - data_fetcher - WARNING - 600011 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:26,646 - data_fetcher - WARNING - 600011 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:30,840 - data_fetcher - WARNING - 600011 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:30,840 - data_fetcher - INFO - 600011 周线直接获取失败，改用日线聚合
+2026-02-26 14:26:30,849 - stock_selector - INFO - [9/10] 正在处理 600012
+2026-02-26 14:26:30,849 - stock_selector - INFO - 开始筛选股票 600012
+2026-02-26 14:26:31,047 - data_fetcher - WARNING - 600012 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:33,280 - data_fetcher - WARNING - 600012 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:37,490 - data_fetcher - WARNING - 600012 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:37,490 - data_fetcher - INFO - 600012 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:26:38,770 - data_fetcher - WARNING - 600012 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:40,967 - data_fetcher - WARNING - 600012 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:45,191 - data_fetcher - WARNING - 600012 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:45,192 - data_fetcher - INFO - 600012 周线直接获取失败，改用日线聚合
+2026-02-26 14:26:45,201 - stock_selector - INFO - [10/10] 正在处理 600015
+2026-02-26 14:26:45,201 - stock_selector - INFO - 开始筛选股票 600015
+2026-02-26 14:26:45,554 - data_fetcher - WARNING - 600015 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:47,781 - data_fetcher - WARNING - 600015 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:52,003 - data_fetcher - WARNING - 600015 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:52,003 - data_fetcher - INFO - 600015 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:26:53,277 - data_fetcher - WARNING - 600015 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:55,506 - data_fetcher - WARNING - 600015 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:59,735 - data_fetcher - WARNING - 600015 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:26:59,735 - data_fetcher - INFO - 600015 周线直接获取失败，改用日线聚合
+2026-02-26 14:26:59,743 - stock_selector - INFO - 筛选完成: 总共检查 10 个股票，0 个通过筛选
+2026-02-26 14:26:59,747 - stock_selector - INFO - 结果已保存到 data/stock_filter_results.csv
+2026-02-26 14:26:59,748 - __main__ - INFO - ============================================================
+2026-02-26 14:26:59,748 - __main__ - INFO - 选股流程完成
+2026-02-26 14:26:59,748 - __main__ - INFO - 结束时间: 2026-02-26 14:26:59
+2026-02-26 14:26:59,748 - __main__ - INFO - ============================================================
+2026-02-26 14:27:11,984 - __main__ - INFO - ============================================================
+2026-02-26 14:27:11,984 - __main__ - INFO - 开始选股流程
+2026-02-26 14:27:11,984 - __main__ - INFO - 开始时间: 2026-02-26 14:27:11
+2026-02-26 14:27:11,984 - __main__ - INFO - ============================================================
+2026-02-26 14:27:11,984 - data_fetcher - INFO - 开始获取所有A股股票代码...
+2026-02-26 14:27:11,985 - data_fetcher - INFO - 尝试接口: stock_info_a_code_name
+2026-02-26 14:27:21,489 - data_fetcher - INFO - 成功获取 5485 个股票代码
+2026-02-26 14:27:21,489 - stock_selector - INFO - 仅处理前 10 个股票进行测试
+2026-02-26 14:27:21,490 - stock_selector - INFO - 开始批量筛选 10 个股票
+2026-02-26 14:27:21,490 - stock_selector - INFO - [1/10] 正在处理 600000
+2026-02-26 14:27:21,490 - stock_selector - INFO - 开始筛选股票 600000
+2026-02-26 14:27:21,702 - data_fetcher - WARNING - 600000 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:27:23,890 - data_fetcher - WARNING - 600000 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:27:28,137 - data_fetcher - WARNING - 600000 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:27:28,137 - data_fetcher - INFO - 600000 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:27:29,294 - data_fetcher - WARNING - 600000 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:27:31,480 - data_fetcher - WARNING - 600000 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:27:35,701 - data_fetcher - WARNING - 600000 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:27:35,701 - data_fetcher - INFO - 600000 周线直接获取失败，改用日线聚合
+2026-02-26 14:27:35,710 - stock_selector - INFO - [2/10] 正在处理 600004
+2026-02-26 14:27:35,711 - stock_selector - INFO - 开始筛选股票 600004
+2026-02-26 14:27:35,930 - data_fetcher - WARNING - 600004 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:27:38,120 - data_fetcher - WARNING - 600004 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:27:42,314 - data_fetcher - WARNING - 600004 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:27:42,314 - data_fetcher - INFO - 600004 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:27:43,823 - data_fetcher - WARNING - 600004 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:27:46,030 - data_fetcher - WARNING - 600004 周线直接获取 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:27:50,260 - data_fetcher - WARNING - 600004 周线直接获取 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:27:50,260 - data_fetcher - INFO - 600004 周线直接获取失败，改用日线聚合
+2026-02-26 14:27:50,269 - stock_selector - INFO - [3/10] 正在处理 600006
+2026-02-26 14:27:50,269 - stock_selector - INFO - 开始筛选股票 600006
+2026-02-26 14:27:50,520 - data_fetcher - WARNING - 600006 日线[东方财富] 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:27:52,760 - data_fetcher - WARNING - 600006 日线[东方财富] 尝试2 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:27:56,943 - data_fetcher - WARNING - 600006 日线[东方财富] 尝试3 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-02-26 14:27:56,943 - data_fetcher - INFO - 600006 日线[东方财富] 失败，尝试下一数据源
+2026-02-26 14:27:58,307 - data_fetcher - WARNING - 600006 周线直接获取 尝试1 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
