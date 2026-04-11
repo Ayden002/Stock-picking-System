@@ -1,82 +1,125 @@
 """
-选股筛选模块
+选股筛选模块 - 使用可插拔规则体系
+
+默认规则组合：
+  - GoldenCrossRule（周线 MA5 > MA10）
+  - LimitUpRule（15 日内涨停）
+  - VolumeSpikeRule（5 日内倍量）
+
+可通过传入自定义 rules 列表来替换或扩展规则。
 """
 import pandas as pd
 from datetime import datetime
 from logger import get_logger
 from data_fetcher import DataFetcher
-from technical_indicator import IndicatorCalculator
+from config import STOCK_FILTER_CONFIG, FILTER_OPTIONS
+
+# 规则模块
+from rules import GoldenCrossRule, LimitUpRule, VolumeSpikeRule
+
+logger = get_logger(__name__)
+
+
+def _build_default_rules():
+    """根据 config.py 中的参数构建默认规则列表。"""
+    cfg = STOCK_FILTER_CONFIG
+    return [
+        GoldenCrossRule(
+            ma_short=cfg['ma5_period'],
+            ma_long=cfg['ma10_period'],
+            use_weekly=cfg.get('use_weekly', True),
+        ),
+        LimitUpRule(
+            days=cfg['limit_up_days'],
+            threshold=cfg['limit_up_threshold'],
+        ),
+        VolumeSpikeRule(
+            days=cfg['volume_multiple_days'],
+            ratio=cfg['volume_multiple_ratio'],
+            avg_period=cfg['volume_avg_period'],
+        ),
+    ]
 
 logger = get_logger(__name__)
 
 class StockSelector:
-    """股票选择器"""
-    
-    def __init__(self):
+    """股票选择器
+
+    Args:
+        rules: 规则列表（继承自 BaseRule），默认使用配置文件中定义的三条规则。
+               传入自定义列表即可替换全部规则，或在默认基础上追加。
+    """
+
+    def __init__(self, rules=None):
         self.fetcher = DataFetcher()
+        self.rules = rules if rules is not None else _build_default_rules()
         self.logger = get_logger(__name__)
-    
+
     def filter_stock(self, code):
-        """对单个股票进行筛选
-        
+        """对单个股票执行所有规则，返回结果字典。
+
         Args:
             code: 股票代码
-            
+
         Returns:
-            dict: 包含筛选结果和详细信息的字典，或None如果筛选失败
+            dict | None: 包含各规则结果的字典；数据不足时返回 None
         """
         try:
             self.logger.info(f"开始筛选股票 {code}")
-            
+
+            # 预过滤：ST / 北交所
+            if FILTER_OPTIONS.get('exclude_st') and (code.startswith('ST') or code.startswith('*')):
+                self.logger.debug(f"{code} 为 ST 股票，跳过")
+                return None
+            if FILTER_OPTIONS.get('exclude_bj') and (code.startswith('4') or code.startswith('8')):
+                self.logger.debug(f"{code} 为北交所股票，跳过")
+                return None
+
             # 获取数据
-            daily_df = self.fetcher.get_stock_daily(code, days=120)
+            daily_df  = self.fetcher.get_stock_daily(code, days=120)
             weekly_df = self.fetcher.get_stock_weekly(code, weeks=52)
-            
+
             if daily_df is None or weekly_df is None:
                 self.logger.warning(f"{code} 数据获取失败")
                 return None
-            
-            if len(daily_df) < 30 or len(weekly_df) < 11:
-                self.logger.warning(f"{code} 数据长度不足")
+
+            min_list_days = FILTER_OPTIONS.get('min_list_days', 60)
+            if len(daily_df) < min_list_days or len(weekly_df) < 11:
+                self.logger.warning(f"{code} 数据长度不足（日线={len(daily_df)}，周线={len(weekly_df)}）")
                 return None
-            
-            # 计算指标
-            calculator = IndicatorCalculator(daily_df, weekly_df)
-            indicators = calculator.calculate_all()
-            
-            # 检查所有条件
-            conditions = {
-                'weekly_golden_cross': indicators['weekly_golden_cross'],
-                'has_limit_up': indicators['has_limit_up'],
-                'has_volume_multiple': indicators['has_volume_multiple'],
-            }
-            
-            # 所有条件必须满足
-            all_passed = all(conditions.values())
-            
+
+            # 逐条规则执行
+            rule_results = {}
+            for rule in self.rules:
+                rule_results[rule.name] = rule.evaluate(daily_df, weekly_df)
+
+            all_passed = all(r["passed"] for r in rule_results.values())
+
             result = {
-                'code': code,
-                'timestamp': datetime.now().isoformat(),
-                'conditions': conditions,
-                'passed': all_passed,
-                'details': {
-                    'latest_close': float(daily_df['收盘价'].iloc[-1]),
-                    'latest_date': daily_df['日期'].iloc[-1].strftime('%Y-%m-%d'),
-                    'weekly_golden_cross': indicators['weekly_golden_cross'],
-                    'limit_up_dates': [d.strftime('%Y-%m-%d') if hasattr(d, 'strftime') else str(d) for d in indicators['limit_up_dates']],
-                    'max_increase': float(indicators['max_increase']),
-                    'volume_dates': [d.strftime('%Y-%m-%d') if hasattr(d, 'strftime') else str(d) for d in indicators['volume_dates']],
-                    'max_multiple': float(indicators['max_multiple']),
-                }
+                "code": code,
+                "timestamp": datetime.now().isoformat(),
+                "passed": all_passed,
+                "rules": rule_results,
+                "details": {
+                    "latest_close": float(daily_df["收盘价"].iloc[-1]),
+                    "latest_date": daily_df["日期"].iloc[-1].strftime("%Y-%m-%d"),
+                    # 兼容字段（供旧版 main.py / CLI 打印使用）
+                    "weekly_golden_cross": rule_results.get("均线金叉", {}).get("passed", False),
+                    "limit_up_dates": rule_results.get("涨停检测", {}).get("detail", {}).get("limit_up_dates", []),
+                    "max_increase": rule_results.get("涨停检测", {}).get("detail", {}).get("max_increase", 0.0),
+                    "volume_dates": rule_results.get("倍量检测", {}).get("detail", {}).get("volume_dates", []),
+                    "max_multiple": rule_results.get("倍量检测", {}).get("detail", {}).get("max_multiple", 0.0),
+                },
             }
-            
+
             if all_passed:
-                self.logger.info(f"✓ {code} 通过所有条件筛选")
+                self.logger.info(f"✓ {code} 通过全部 {len(self.rules)} 条规则")
             else:
-                self.logger.debug(f"✗ {code} 未通过筛选: {conditions}")
-            
+                failed = [n for n, r in rule_results.items() if not r["passed"]]
+                self.logger.debug(f"✗ {code} 未通过规则: {failed}")
+
             return result
-            
+
         except Exception as e:
             self.logger.error(f"{code} 筛选失败: {str(e)}", exc_info=True)
             return None
@@ -112,42 +155,38 @@ class StockSelector:
     
     def save_results(self, results, filename='stock_filter_results.csv'):
         """保存筛选结果到CSV文件
-        
+
         Args:
             results: 筛选结果列表
-            filename: 保存文件名
+            filename: 保存文件名（相对于 data/ 目录）
         """
         if not results:
             self.logger.warning("没有结果可保存")
             return
-        
+
         try:
-            # 构建 DataFrame
             data = []
             for r in results:
-                data.append({
+                row = {
                     '代码': r['code'],
-                    '日期': r['details']['latest_date'],
+                    '选股日期': r['details']['latest_date'],
                     '最新收盘价': r['details']['latest_close'],
-                    '周线金叉': '是' if r['details']['weekly_golden_cross'] else '否',
-                    '涨停日期': ', '.join(r['details']['limit_up_dates']),
-                    '最大涨幅': f"{r['details']['max_increase']:.2%}",
-                    '倍量日期': ', '.join(r['details']['volume_dates']),
-                    '最大倍数': f"{r['details']['max_multiple']:.2f}x",
-                    '通过筛选': '是' if r['passed'] else '否',
-                })
-            
+                }
+                # 每条规则的通过情况
+                for rule_name, rule_res in r.get('rules', {}).items():
+                    row[rule_name] = '是' if rule_res['passed'] else '否'
+                row['通过筛选'] = '是' if r['passed'] else '否'
+                data.append(row)
+
             df = pd.DataFrame(data)
-            
-            # 按通过筛选排序，通过的在前面
-            df['通过筛选'] = df['通过筛选'] == '是'
-            df = df.sort_values('通过筛选', ascending=False)
-            df['通过筛选'] = df['通过筛选'].map({True: '是', False: '否'})
-            
+            # 通过的排前面
+            df['_sort'] = df['通过筛选'] == '是'
+            df = df.sort_values('_sort', ascending=False).drop(columns=['_sort'])
+
             filepath = f'data/{filename}'
             df.to_csv(filepath, index=False, encoding='utf-8-sig')
             self.logger.info(f"结果已保存到 {filepath}")
-            
+
         except Exception as e:
             self.logger.error(f"保存结果失败: {str(e)}", exc_info=True)
 

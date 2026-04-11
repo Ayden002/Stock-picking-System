@@ -1,16 +1,23 @@
 """
-数据获取模块 - 使用 AKshare 接口
+数据获取模块 - 使用 AKshare 接口，支持本地 CSV 缓存
+
+缓存规则：
+  - 日线数据按代码存储为 data/cache/<code>_daily.csv
+  - 超过 CACHE_EXPIRE_DAYS 天（自然日）的缓存文件视为过期，重新拉取
+  - 周线数据不单独缓存，由日线 resample 生成或临时拉取
 """
 import akshare as ak
 import pandas as pd
 import requests
 from requests.adapters import HTTPAdapter
 from datetime import datetime, timedelta
+import os
 import time
 from logger import get_logger
 from config import (
     REQUEST_TIMEOUT, MAX_RETRIES, RETRY_DELAY,
-    LIMIT_UP_THRESHOLD, STOCK_FILTER_CONFIG
+    LIMIT_UP_THRESHOLD, STOCK_FILTER_CONFIG,
+    CACHE_DIR, CACHE_EXPIRE_DAYS,
 )
 
 logger = get_logger(__name__)
@@ -68,11 +75,52 @@ def _code_prefix(code: str) -> str:
 
 
 class DataFetcher:
-    """数据获取器"""
+    """数据获取器（含本地 CSV 缓存）"""
 
     def __init__(self):
         self.logger = get_logger(__name__)
-        self._daily_cache: dict = {}   # {code: DataFrame} 本次运行内缓存
+        self._daily_cache: dict = {}   # {code: DataFrame} 本次运行内存缓存
+
+    # ------------------------------------------------------------------
+    # 缓存辅助
+    # ------------------------------------------------------------------
+    @staticmethod
+    def _cache_path(code: str) -> str:
+        return os.path.join(CACHE_DIR, f"{code}_daily.csv")
+
+    @staticmethod
+    def _cache_is_fresh(path: str) -> bool:
+        """判断缓存文件是否在有效期内。"""
+        if not os.path.exists(path):
+            return False
+        mtime = datetime.fromtimestamp(os.path.getmtime(path))
+        return (datetime.now() - mtime).days < CACHE_EXPIRE_DAYS
+
+    def _load_cache(self, code: str) -> pd.DataFrame | None:
+        """从磁盘加载缓存的日线数据。"""
+        path = self._cache_path(code)
+        if not self._cache_is_fresh(path):
+            return None
+        try:
+            df = pd.read_csv(path, encoding="utf-8")
+            df["日期"] = pd.to_datetime(df["日期"])
+            for col in ["开盘价", "收盘价", "最高价", "最低价"]:
+                if col in df.columns:
+                    df[col] = pd.to_numeric(df[col], errors="coerce")
+            if "成交量" in df.columns:
+                df["成交量"] = pd.to_numeric(df["成交量"], errors="coerce").fillna(0).astype(float)
+            self.logger.debug(f"{code} 命中磁盘缓存")
+            return df
+        except Exception as e:
+            self.logger.warning(f"{code} 读取缓存失败: {e}")
+            return None
+
+    def _save_cache(self, code: str, df: pd.DataFrame) -> None:
+        """将日线数据写入磁盘缓存。"""
+        try:
+            df.to_csv(self._cache_path(code), index=False, encoding="utf-8")
+        except Exception as e:
+            self.logger.warning(f"{code} 写入缓存失败: {e}")
 
     # ------------------------------------------------------------------
     # 获取股票代码列表（多接口备用）
@@ -144,14 +192,20 @@ class DataFetcher:
         return codes
 
     # ------------------------------------------------------------------
-    # 日线数据（多数据源备用）
+    # 日线数据（多数据源备用 + 本地 CSV 缓存）
     # ------------------------------------------------------------------
     def get_stock_daily(self, code, days=120):
-        """获取股票日线数据（带重试 + 多数据源 + 本地缓存）"""
-        # 命中缓存则直接返回（避免同一 code 重复请求）
+        """获取股票日线数据（带重试 + 多数据源 + 内存/磁盘双缓存）"""
+        # 1. 内存缓存
         if code in self._daily_cache:
-            self.logger.debug(f"{code} 日线命中缓存")
+            self.logger.debug(f"{code} 日线命中内存缓存")
             return self._daily_cache[code]
+
+        # 2. 磁盘缓存
+        cached = self._load_cache(code)
+        if cached is not None:
+            self._daily_cache[code] = cached
+            return cached
 
         start = (datetime.now() - timedelta(days=days)).strftime('%Y%m%d')
         end   = datetime.now().strftime('%Y%m%d')
@@ -175,7 +229,8 @@ class DataFetcher:
                     df = source_fn()
                     if df is not None and not df.empty:
                         result = self._normalize(df, _DAILY_COLS, code)
-                        self._daily_cache[code] = result   # 写入缓存
+                        self._daily_cache[code] = result   # 内存缓存
+                        self._save_cache(code, result)     # 磁盘缓存
                         return result
                     self.logger.warning(f"{code} 日线[{src_name}] 返回空数据")
                     break
