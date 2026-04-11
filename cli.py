@@ -105,7 +105,7 @@ def cmd_backtest(args):
         commission=BACKTEST_CONFIG["commission"],
         slippage=BACKTEST_CONFIG["slippage"],
     )
-    report = engine.run(stocks, hold_days=hold)
+    report = engine.run(stocks)
     engine.print_report(report)
     engine.save_report(report)
     print(f"📄 回测明细：data/backtest_results.csv\n")

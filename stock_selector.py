@@ -40,8 +40,6 @@ def _build_default_rules():
         ),
     ]
 
-logger = get_logger(__name__)
-
 class StockSelector:
     """股票选择器
 
