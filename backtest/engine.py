@@ -202,3 +202,72 @@ class BacktestEngine:
         df = pd.DataFrame(report["trades"])
         df.to_csv(filepath, index=False, encoding="utf-8-sig")
         logger.info(f"回测明细已保存到 {filepath}")
+
+    # ------------------------------------------------------------------
+    # 因子贡献度评估（按规则分组）
+    # ------------------------------------------------------------------
+    @staticmethod
+    def factor_attribution(stocks: list[dict], trades: list[dict]) -> dict:
+        """按规则 passed/failed 分组统计平均收益，用于评估每个因子的有效性。
+
+        Args:
+            stocks: 选股结果列表，每项必须含 ``code`` 和 ``rules`` 字段
+                    （rules 形如 {"主力资金":{"passed":True}, ...}）。
+            trades: 由 run() 产出的 trades 明细。
+
+        Returns:
+            dict[rule_name] -> {n_pass, n_fail, ret_pass, ret_fail, ic_proxy}
+        """
+        # code -> net_return
+        ret_map = {t["code"]: t["net_return"] for t in trades}
+
+        rule_names = set()
+        for s in stocks:
+            rule_names.update((s.get("rules") or {}).keys())
+
+        result = {}
+        for rn in rule_names:
+            pass_rets, fail_rets = [], []
+            for s in stocks:
+                code = s.get("code") or s.get("代码")
+                r = ret_map.get(code)
+                if r is None:
+                    continue
+                ru = (s.get("rules") or {}).get(rn)
+                if not ru:
+                    continue
+                if ru.get("passed"):
+                    pass_rets.append(r)
+                else:
+                    fail_rets.append(r)
+
+            n_p, n_f = len(pass_rets), len(fail_rets)
+            avg_p = sum(pass_rets) / n_p if n_p else 0.0
+            avg_f = sum(fail_rets) / n_f if n_f else 0.0
+            result[rn] = {
+                "n_pass": n_p,
+                "n_fail": n_f,
+                "ret_pass": round(avg_p, 6),
+                "ret_fail": round(avg_f, 6),
+                "spread"  : round(avg_p - avg_f, 6),  # 多空收益差，>0 即因子正向有效
+            }
+        return result
+
+    @staticmethod
+    def print_factor_attribution(attribution: dict) -> None:
+        if not attribution:
+            print("没有可分析的因子样本。")
+            return
+        print("\n" + "=" * 72)
+        print("因子贡献度（多空收益差，>0 表示因子正向有效）")
+        print("=" * 72)
+        print(f"{'规则':<14} {'通过数':>6} {'未过数':>6} "
+              f"{'通过均收':>10} {'未过均收':>10} {'多空差':>10}")
+        # 按 spread 降序
+        items = sorted(attribution.items(), key=lambda kv: kv[1]["spread"], reverse=True)
+        for name, m in items:
+            print(
+                f"{name:<14} {m['n_pass']:>6} {m['n_fail']:>6} "
+                f"{m['ret_pass']:>+10.2%} {m['ret_fail']:>+10.2%} {m['spread']:>+10.2%}"
+            )
+        print("=" * 72 + "\n")

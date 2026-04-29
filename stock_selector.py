@@ -15,19 +15,81 @@ from data_fetcher import DataFetcher
 from config import STOCK_FILTER_CONFIG, FILTER_OPTIONS
 
 # 规则模块
-from rules import GoldenCrossRule, LimitUpRule, VolumeSpikeRule
+from rules import (
+    GoldenCrossRule,
+    LimitUpRule,
+    VolumeSpikeRule,
+    MainFlowRule,
+    RiskFilterRule,
+    VCPRule,
+    BoxBreakoutRule,
+    LiquidityRule,
+)
 
 logger = get_logger(__name__)
+
+# 评分权重（合计 1.0）
+#   资金面 0.25 + 形态(VCP+箱体) 0.30 + 趋势 0.15 + 量能 0.10 + 涨停 0.10 + 风险过滤 0.10
+SCORE_WEIGHTS = {
+    "主力资金"      : 0.25,
+    "波动收敛VCP"   : 0.15,
+    "箱体突破"      : 0.15,
+    "均线金叉"      : 0.15,
+    "倍量检测"      : 0.10,
+    "涨停检测"      : 0.10,
+    "风险过滤"      : 0.10,
+}
+
+# 一票否决规则：流动性 / 资金面 / 超买
+VETO_RULES = {"流动性过滤", "主力资金", "风险过滤"}
 
 
 def _build_default_rules():
     """根据 config.py 中的参数构建默认规则列表。"""
     cfg = STOCK_FILTER_CONFIG
     return [
+        # ── Layer-1 一票否决：流动性预过滤（最便宜的剔除，先做）──
+        LiquidityRule(
+            avg_period=cfg.get("liq_avg_period", 20),
+            min_amount_wan=cfg.get("liq_min_amount_wan", 5000.0),
+            min_turnover_pct=cfg.get("liq_min_turnover_pct", 0.5),
+        ),
+        # ── Layer-1 一票否决：资金面 + 超买 ──
+        MainFlowRule(
+            flow_out_veto=cfg.get("mf_flow_out_veto_wan", 5000.0),
+            follow_veto=cfg.get("mf_follow_veto", -0.3),
+            require_net_in=cfg.get("mf_require_net_in", False),
+            min_continuity=cfg.get("mf_min_continuity", 0.4),
+            limit_up_threshold=cfg.get("limit_up_threshold", 0.095),
+            net_in_pass_wan=cfg.get("mf_net_in_pass_wan", 2000.0),
+        ),
+        RiskFilterRule(
+            rsi_period=cfg.get("rf_rsi_period", 14),
+            rsi_overbought=cfg.get("rf_rsi_overbought", 80.0),
+            kdj_n=cfg.get("rf_kdj_n", 9),
+            kdj_j_overbought=cfg.get("rf_kdj_j_overbought", 100.0),
+            boll_warn_z=cfg.get("rf_boll_warn_z", 0.8),
+        ),
+        # ── Layer-2 形态 / 趋势 / 动量 / 量能 / 涨停 ──
+        VCPRule(
+            short_n=cfg.get("vcp_short_n", 10),
+            long_n=cfg.get("vcp_long_n", 30),
+            threshold=cfg.get("vcp_threshold", 0.6),
+            max_drawdown_in_long=cfg.get("vcp_max_drawdown", 0.2),
+            max_dist_to_high=cfg.get("vcp_max_dist_to_high", 0.05),
+        ),
+        BoxBreakoutRule(
+            box_window=cfg.get("box_window", 30),
+            lookback_days=cfg.get("box_lookback_days", 3),
+            min_break_pct=cfg.get("box_min_break_pct", 0.005),
+            vol_ratio=cfg.get("box_vol_ratio", 1.5),
+        ),
         GoldenCrossRule(
             ma_short=cfg['ma5_period'],
             ma_long=cfg['ma10_period'],
             use_weekly=cfg.get('use_weekly', True),
+            lookback_weeks=cfg.get('lookback_weeks', 2),
+            require_ma_long_up=cfg.get('require_ma_long_up', True),
         ),
         LimitUpRule(
             days=cfg['limit_up_days'],
@@ -86,17 +148,40 @@ class StockSelector:
                 self.logger.warning(f"{code} 数据长度不足（日线={len(daily_df)}，周线={len(weekly_df)}）")
                 return None
 
-            # 逐条规则执行
+            # 逐条规则执行（传入 code 以支持联网类规则）
             rule_results = {}
             for rule in self.rules:
-                rule_results[rule.name] = rule.evaluate(daily_df, weekly_df)
+                try:
+                    rule_results[rule.name] = rule.evaluate(daily_df, weekly_df, code=code)
+                except TypeError:
+                    # 兼容旧版 evaluate(daily_df, weekly_df) 签名
+                    rule_results[rule.name] = rule.evaluate(daily_df, weekly_df)
 
-            all_passed = all(r["passed"] for r in rule_results.values())
+            # 一票否决
+            vetoed = any(
+                (not rule_results.get(n, {}).get("passed", False))
+                for n in VETO_RULES
+                if n in rule_results
+            )
+
+            # 综合评分（0-1）
+            if vetoed:
+                score = 0.0
+            else:
+                score = 0.0
+                for n, w in SCORE_WEIGHTS.items():
+                    if rule_results.get(n, {}).get("passed", False):
+                        score += w
+            score = round(score, 4)
+
+            all_passed = (not vetoed) and all(r["passed"] for r in rule_results.values())
 
             result = {
                 "code": code,
                 "timestamp": datetime.now().isoformat(),
                 "passed": all_passed,
+                "vetoed": vetoed,
+                "score": score,
                 "rules": rule_results,
                 "details": {
                     "latest_close": float(daily_df["收盘价"].iloc[-1]),
@@ -111,10 +196,12 @@ class StockSelector:
             }
 
             if all_passed:
-                self.logger.info(f"✓ {code} 通过全部 {len(self.rules)} 条规则")
+                self.logger.info(f"✓ {code} 通过全部 {len(self.rules)} 条规则（评分 {score}）")
+            elif vetoed:
+                self.logger.debug(f"✗ {code} 一票否决（资金/风险面未过）")
             else:
                 failed = [n for n, r in rule_results.items() if not r["passed"]]
-                self.logger.debug(f"✗ {code} 未通过规则: {failed}")
+                self.logger.debug(f"✗ {code} 未通过规则: {failed}（评分 {score}）")
 
             return result
 
@@ -169,6 +256,8 @@ class StockSelector:
                     '代码': r['code'],
                     '选股日期': r['details']['latest_date'],
                     '最新收盘价': r['details']['latest_close'],
+                    '评分': r.get('score', 0.0),
+                    '否决': '是' if r.get('vetoed') else '否',
                 }
                 # 每条规则的通过情况
                 for rule_name, rule_res in r.get('rules', {}).items():
@@ -177,9 +266,9 @@ class StockSelector:
                 data.append(row)
 
             df = pd.DataFrame(data)
-            # 通过的排前面
-            df['_sort'] = df['通过筛选'] == '是'
-            df = df.sort_values('_sort', ascending=False).drop(columns=['_sort'])
+            # 按评分降序，否决的排后面
+            df['_veto_sort'] = df['否决'] == '是'
+            df = df.sort_values(['_veto_sort', '评分'], ascending=[True, False]).drop(columns=['_veto_sort'])
 
             filepath = f'data/{filename}'
             df.to_csv(filepath, index=False, encoding='utf-8-sig')
